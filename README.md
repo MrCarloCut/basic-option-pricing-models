@@ -29,7 +29,9 @@ Finally, the CRR binomial tree is applied to **American call and put options**, 
 ## Monte Carlo Method results
 
 The fixed parameters are: S0=100, T=5, k=100, sigma=0.3, r=0.05.\
-The reference value is computed using the black_scholes_formula() function and it is 35.9578. 
+The reference value is computed using the black_scholes_formula() function and it is 35.9578.\
+The estimate values are computed using the MonteCarlo() function.
+N represents the number of Monte Carlo paths simulated.
 
 | N        | MC estimate | Interval width | Error  | Avg execution time (s) |
 |----------|-------------|----------------|--------|------------------------|
@@ -41,3 +43,20 @@ The reference value is computed using the black_scholes_formula() function and i
 As expected from theory, the Monte Carlo estimator converges at a rate of 1/√N.  
 This behavior is empirically confirmed by the decreasing errors and confidence interval widths as N increases.  
 On the other hand, the computational cost grows linearly with the number of simulations, in agreement with the theoretical complexity of the method.
+
+## CRR results
+
+The fixed parameters are: S0=100, T=5, k=100, sigma=0.3, r=0.05.\
+The reference value is computed using the black_scholes_formula() function and it is 35.9578.\
+The estimate values are computed using CRR_vector_eu() function.
+N represents the number of time steps in the binomial tree.
+
+| N       | CRR estimate | Error   | Avg execution time (s) |
+|---------|-------------|---------|------------------------|
+| 10      | 35.3538     | 0.6041  | 0.000285               |
+| 100     | 35.8966     | 0.0612  | 0.001296               |
+| 1,000   | 35.9517     | 0.0061  | 0.014242               |
+| 10,000  | 35.9572     | 0.0006  | 1.026371               |
+
+As expected from theory, the CRR estimator converges at a rate of 1/N, as seen from the decreasing errors.
+However, the computational cost increases significantly with N, as reflected by the average execution times, highlighting the trade-off between accuracy and efficiency.
